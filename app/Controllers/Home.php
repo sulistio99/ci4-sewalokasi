@@ -26,6 +26,7 @@ class Home extends BaseController
         $data = [
             'page' => 'v_home',
             'menu' => 'home',
+            'submenu' => '',
         ];
         return view('v_template_home', $data);
     }
@@ -39,11 +40,12 @@ class Home extends BaseController
                 $data2 = [
                     'page' => 'v_info',
                     'menu' => 'info',
+                    'submenu' => '',
                     'hunian' => $this->ModelHunian->AllData(),
                     'h' => $h,
                     'hunianp' => $this->ModelHunian->paginate(8, 'hunianp'),
                     'pager' => $this->ModelHunian->pager,
-                    'hunianterbaru' => $this->ModelHunian->AllDataLimit()
+                    // 'hunianterbaru' => $this->ModelHunian->AllDataLimit()
                 ];
                 return view('v_template_user', $data2);
             }
@@ -52,6 +54,7 @@ class Home extends BaseController
             $data2 = [
                 'page' => 'v_info',
                 'menu' => 'info',
+                'submenu' => '',
                 'hunian' => $this->ModelHunian->AllData(),
                 'h' => $this->ModelHunian->paginate(8, 'h'),
                 'hunianp' => $this->ModelHunian->paginate(8, 'hunianp'),
@@ -64,6 +67,7 @@ class Home extends BaseController
         $data = [
             'page' => 'v_info',
             'menu' => 'info',
+            'submenu' => '',
             'hunian' => $this->ModelHunian->AllData(),
             'h' => $h,
             'hunianp' => $this->ModelHunian->paginate(8, 'hunianp'),
@@ -78,6 +82,7 @@ class Home extends BaseController
         $data = [
             'page' => 'v_contact',
             'menu' => 'contact',
+            'submenu' => '',
         ];
         return view('v_template_user', $data);
     }
@@ -87,6 +92,7 @@ class Home extends BaseController
         $data = [
             'page' => 'user/v_pesan',
             'menu' => 'info',
+            'submenu' => '',
             'detailhunian' => $this->ModelHunian->DetailData($id_hunian),
             'detailgambarhunian' => $this->ModelHunian->AllDataGambar($id_hunian),
             'gambarhunian' => $this->ModelHunian->AllDataGambar($id_hunian),
@@ -99,6 +105,7 @@ class Home extends BaseController
         $data = [
             'page' => 'user/v_komplain',
             'menu' => 'info',
+            'submenu' => '',
             'detailhunian' => $this->ModelHunian->DetailData($id_hunian)
         ];
         return view('v_template_user', $data);
@@ -110,6 +117,7 @@ class Home extends BaseController
         $data = [
             'page' => 'user/v_sewa',
             'menu' => 'sewa',
+            'submenu' => '',
             'datamember' => $this->ModelSewa->DetailDataSewa($id_member),
         ];
         return view('v_template_user', $data);
@@ -121,6 +129,7 @@ class Home extends BaseController
         $data = [
             'page' => 'user/v_status_pesan',
             'menu' => 'pesanan',
+            'submenu' => '',
             'datamember' => $this->ModelPesan->DetailDataPesan($id_member),
         ];
         return view('v_template_user', $data);
@@ -131,7 +140,8 @@ class Home extends BaseController
         $data = [
             'title' => 'Form Tambah Tempat Lokasi',
             'page' => 'user/v_tambah_lokasi',
-            'menu' => 'tambahlokasi',
+            'menu' => 'akun',
+            'submenu' => 'tambahtempat',
             'datamember' => $this->ModelPesan->DetailDataPesan($id_member),
             'kategori' => $this->ModelKategori->AllData(),
         ];
@@ -236,5 +246,18 @@ class Home extends BaseController
             session()->setFlashdata('errors', \config\Services::validation()->getErrors());
             return redirect()->to(base_url('Home/TambahTempat/' . $id_member))->withInput('validation', \Config\Services::validation());
         }
+    }
+
+    public function Tempat($id_member)
+    {
+        $id_member = session('id_member');
+        $data = [
+            'title' => 'Data Tempat',
+            'menu' => 'akun',
+            'submenu' => 'datatempat',
+            'page' => 'user/v_all_tempat',
+            'datahunian' => $this->ModelHunian->AllDataHunianMember($id_member)
+        ];
+        return view('v_template_user', $data);
     }
 }

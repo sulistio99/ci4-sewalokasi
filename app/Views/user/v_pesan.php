@@ -24,7 +24,7 @@
       </div>
       <div class="col-sm-4">
         <?php echo form_open('User/Pesan/' . session('id_member')) ?>
-        <div class="product-desc">
+        <div class="product-desc font-weight-bold">
           <h3><?= $detailhunian['nama_hunian']; ?></h3>
           Luas Tanah : <?= $detailhunian['luas_tanah']; ?> m² | Luas Bangunan : <?= $detailhunian['luas_bangunan']; ?> m²
           <br>
@@ -32,13 +32,16 @@
           <p class="price">
             <span><?= number_to_currency($detailhunian['harga_hunian'], 'Rp.') ?> / Bulan</span>
           </p>
+          <p>
+            <span>Status : <?= $detailhunian['status_hunian']; ?></span>
+          </p>
           <a href="https://wa.me/089635789232" class="btn btn-success btn-addtocart btn-block"> <i class="icon-whatsapp"></i> Hubungi Pemilik Tempat
           </a>
 
           <div class="size-wrap">
             <div class="block-26 mb-2">
               <h4>Tanggal Mulai</h4>
-              <input type="date" class="form-control" name="tanggal_mulai">
+              <input type="date" class="form-control" name="tanggal_mulai" required>
             </div>
             <div class="block-26 mb-2">
               <h4>Durasi Per Bulan</h4>
@@ -49,6 +52,8 @@
               <label for="contactChoice1">3 Bulan</label>
               <input type="radio" name="durasi" value="6 Bulan" />
               <label for="contactChoice1">6 Bulan</label>
+              <input type="radio" name="durasi" value="12 Bulan" />
+              <label for="contactChoice1">12 Bulan</label>
             </div>
           </div>
           <div class="row">

@@ -18,16 +18,8 @@ if (session()->getFlashdata('pesan')) {
     <?php echo form_close() ?>
   </div>
 </div>
-<?php if (!$h) { ?>
-  <div class="row text-center" style="margin-left: auto; margin-right: auto;">
-    <div class="col">
-      <img src="<?= base_url('foto/emptysearch.png'); ?>" width="120">
-      <h5>Data tidak ditemukan ditoko ini.</h5>
-    </div>
-  </div>
-<?php } ?>
-<div class="colorlib-product">
 
+<div class="colorlib-product">
   <div class="container text-center">
     <div class="row row-pb-md">
       <?php foreach ($h as $key => $value) { ?>
@@ -43,13 +35,27 @@ if (session()->getFlashdata('pesan')) {
               <span class="price"><?= number_to_currency($value['harga_hunian'], 'Rp.') ?> / Bulan</span>
             </div>
             <p>
-              <a href="<?= base_url('Home/Pesan/' . $value['id_hunian']); ?>" class="btn btn-success btn-sm">Pesan</a>
+              <a href="<?= base_url('Home/Pesan/' . $value['id_hunian']); ?>" class="btn btn-success 
+              btn-sm">Pesan</a>
               <a href="<?= base_url('Home/Komplain/' . $value['id_hunian']); ?>" class="btn btn-danger btn-sm">Komplain</a>
             </p>
           </div>
         </div>
       <?php } ?>
     </div>
-    <?= $pager->links('h', 'paging'); ?>
+    <?php
+    if ($h) { ?>
+      <?= $pager->links('h', 'paging'); ?>
+    <?php }
+    ?>
   </div>
 </div>
+
+<?php if (!$h) { ?>
+  <div class="row text-center ml-auto mr-auto">
+    <div class="col text-center">
+      <img src="<?= base_url('foto/emptysearch.png'); ?>" width="120" class="img-fluid">
+      <h5>Data tidak ditemukan ditoko ini.</h5>
+    </div>
+  </div>
+<?php } ?>

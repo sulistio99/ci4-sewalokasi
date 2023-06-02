@@ -70,12 +70,12 @@
                   </li>
                 <?php  } ?>
                 <?php if (session('id_member')) { ?>
-                  <li class="has-dropdown <?= $menu == 'tambahlokasi' ? 'active' : ''; ?>">
+                  <li class="has-dropdown <?= $menu == 'akun' ? 'active' : ''; ?>">
                     <a href="">Akun</a>
                     <ul class="dropdown">
-                      <li class="<?= $menu == 'tambahlokasi' ? 'active' : ''; ?>"><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Tambah Lokasi</a>
+                      <li class="<?= $submenu == 'tambahtempat' ? 'active' : ''; ?>"><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Tambah Lokasi</a>
                       </li>
-                      <li><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Data Tempat</a>
+                      <li class="<?= $submenu == 'datatempat' ? 'active' : ''; ?>"><a href="<?= base_url('Home/Tempat/' . session('id_member')); ?>">Data Tempat</a>
                       </li>
                     </ul>
                   </li>
