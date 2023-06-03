@@ -260,4 +260,180 @@ class Home extends BaseController
         ];
         return view('v_template_user', $data);
     }
+
+    public function UbahTempat($id_hunian)
+    {
+        $id_member = session('id_member');
+        $data = [
+            'title' => 'Form Ubah Tempat Lokasi',
+            'page' => 'user/v_ubah_tempat',
+            'menu' => 'akun',
+            'submenu' => 'tambahtempat',
+            'kategori' => $this->ModelKategori->AllData(),
+            'tempatmember' => $this->ModelHunian->DetailDataHunianMember($id_hunian)
+        ];
+        return view('v_template_user', $data);
+    }
+
+    public function UbahDataHunian($id_hunian)
+    {
+        if ($this->validate([
+            'nama_pemilik' => [
+                'label' => 'Nama Pemilik',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'alamat_hunian' => [
+                'label' => 'Alamat',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'id_kategori' => [
+                'label' => 'Kategori',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'info' => [
+                'label' => 'Info Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'nama_hunian' => [
+                'label' => 'Nama Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'id_kategori' => [
+                'label' => 'Jenis Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!',
+                ]
+            ],
+            'luas_tanah' => [
+                'label' => 'Luas Tanah',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'luas_bangunan' => [
+                'label' => 'Luas Bangunan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'deskripsi_hunian' => [
+                'label' => 'Fasilitas Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'status_hunian' => [
+                'label' => 'Status Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'harga_hunian' => [
+                'label' => 'harga Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'gambar' => [
+                'label' => 'Gambar',
+                // tidak wajib ganti foto 
+                'rules' => 'max_size[gambar,2048]|mime_in[gambar,image/png,image/jpg,image/gif,image/jpeg]',
+                'errors' => [
+                    'uploaded' => '{field} Wajib Diisi!.',
+                    'max_size' => '{field} Max 2Mb.',
+                    'mime_in' => 'Format {field} Harus JPG, JPEG, PNG,GIF',
+                ]
+            ],
+        ])) {
+            // ambil dlu getfile dari form
+            $foto = $this->request->getFile('gambar');
+
+            if ($foto->getError() == 4) {
+                // ambil variabel dari form users
+                $data = [
+                    'id_hunian' => $id_hunian,
+                    'nama_pemilik' => $this->request->getPost('nama_pemilik'),
+                    'alamat_hunian' => $this->request->getPost('alamat_hunian'),
+                    'id_kategori' => $this->request->getPost('id_kategori'),
+                    'info' => $this->request->getPost('info'),
+                    'nama_hunian' => $this->request->getPost('nama_hunian'),
+                    'luas_tanah' => $this->request->getPost('luas_tanah'),
+                    'luas_bangunan' => $this->request->getPost('luas_bangunan'),
+                    'deskripsi_hunian' => $this->request->getPost('deskripsi_hunian'),
+                    'status_hunian' => $this->request->getPost('status_hunian'),
+                    'harga_hunian' => $this->request->getPost('harga_hunian'),
+                ];
+                $this->ModelHunian->UpdateData($data);
+            } else {
+                // jika ganti gambar
+                // hapus foto lama
+                $hunian = $this->ModelHunian->DetailData($id_hunian);
+                if ($hunian['gambar'] <> '' or $hunian['gambar'] <> null) {
+                    // unlink untuk hapus foto lama gantiyang baru
+                    unlink('foto/hunian/' . $hunian['gambar']);
+                }
+                // getrandomname untuk penamaan file
+                $nama_file = $foto->getRandomName();
+                $data = [
+                    'id_hunian' => $id_hunian,
+                    'nama_pemilik' => $this->request->getPost('nama_pemilik'),
+                    'alamat_hunian' => $this->request->getPost('alamat_hunian'),
+                    'id_kategori' => $this->request->getPost('id_kategori'),
+                    'info' => $this->request->getPost('info'),
+                    'nama_hunian' => $this->request->getPost('nama_hunian'),
+                    'deskripsi_hunian' => $this->request->getPost('deskripsi_hunian'),
+                    'status_hunian' => $this->request->getPost('status_hunian'),
+                    'harga_hunian' => $this->request->getPost('harga_hunian'),
+                    'gambar' => $nama_file,
+                ];
+                $foto->move('foto/hunian', $nama_file);
+                $this->ModelHunian->UpdateData($data);
+            }
+            session()->setFlashdata('pesan', 'Data Hunian Berhasil Diubah!');
+            return redirect()->to(base_url('Home/UbahTempat/' . $id_hunian));
+            // jika entri tidak valid
+        } else {
+            session()->setFlashdata('errors', \config\Services::validation()->getErrors());
+            return redirect()->to(base_url('Home/UbahTempat/' . $id_hunian))->withInput('validation', \Config\Services::validation());
+        }
+    }
+
+    public function DeleteHunian($id_hunian)
+    {
+        $id_member = session('id_member');
+        // hapus foto lama
+        $hunian = $this->ModelHunian->DetailData($id_hunian);
+        if ($hunian['gambar'] <> '' or $hunian['gambar'] <> null) {
+            // unlink untuk hapus foto lama gantiyang baru
+            unlink('foto/hunian/' . $hunian['gambar']);
+        }
+
+        $data = [
+            'id_hunian' => $id_hunian
+        ];
+        $this->ModelHunian->DeleteData($data);
+        session()->setFlashdata('pesan', 'Data Berhasil Dihapus.');
+        return redirect()->to(base_url('Home/Tempat/' . $id_member));
+    }
 }

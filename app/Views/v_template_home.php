@@ -70,9 +70,9 @@
                   <li class="has-dropdown">
                     <a href="">Akun</a>
                     <ul class="dropdown">
-                      <li class="<?= $menu == 'tambahlokasi' ? 'active' : ''; ?>"><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Tambah Lokasi</a>
+                      <li class="<?= $menu == 'tambahlokasi' ? 'active' : ''; ?>"><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Tambah Tempat</a>
                       </li>
-                      <li class="<?= $menu == 'tambahlokasi' ? 'active' : ''; ?>"><a href="<?= base_url('Home/TambahTempat/' . session('id_member')); ?>">Data Tempat</a>
+                      <li class="<?= $menu == 'datatempat' ? 'active' : ''; ?>"><a href="<?= base_url('Home/Tempat/' . session('id_member')); ?>">Data Tempat</a>
                       </li>
                     </ul>
                   </li>

@@ -24,6 +24,15 @@ class ModelHunian extends Model
       ->get()->getResultArray();
   }
 
+  public function DetailDataHunianMember($id_hunian)
+  {
+    return $this->db->table('tb_hunian')
+      ->join('tb_member', 'tb_member.id_member=tb_hunian.id_member')
+      ->join('tb_kategori', 'tb_kategori.id_kategori=tb_hunian.id_kategori')
+      ->where('id_hunian', $id_hunian)
+      ->get()->getRowArray();
+  }
+
   public function AllDataLimit()
   {
     return $this->db->table('tb_hunian')
