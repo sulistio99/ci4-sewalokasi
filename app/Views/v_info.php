@@ -13,6 +13,11 @@ if (session()->getFlashdata('pesan')) {
     <?php echo form_open('Home/Info') ?>
     <div class="input-group">
       <input type="search" class="form-control" placeholder="Pencarian" name="keywoard" style="border-radius: 50px;" size="50px">
+      <label></label>Harga : </label>
+      <select class="form-control">
+        <option>Terendah</option>
+        <option>Tertinggi</option>
+      </select>
       <button class="btn btn-success text-center" type="submit"><i class="fas fa-search"></i> Cari</button>
     </div>
     <?php echo form_close() ?>

@@ -7,6 +7,9 @@ use App\Models\ModelHunian;
 use App\Models\ModelSewa;
 use App\Models\ModelPesan;
 use App\Models\ModelKategori;
+use App\Models\ModelKabupaten;
+use App\Models\ModelProvinsi;
+use App\Models\ModelKecamatan;
 
 class Home extends BaseController
 {
@@ -18,6 +21,9 @@ class Home extends BaseController
         $this->ModelSewa = new ModelSewa();
         $this->ModelPesan = new ModelPesan();
         $this->ModelKategori = new ModelKategori();
+        $this->ModelProvinsi = new ModelProvinsi();
+        $this->ModelKabupaten = new ModelKabupaten();
+        $this->ModelKecamatan = new ModelKecamatan();
         $pager =  \Config\Services::Pager();
     }
 
@@ -144,6 +150,9 @@ class Home extends BaseController
             'submenu' => 'tambahtempat',
             'datamember' => $this->ModelPesan->DetailDataPesan($id_member),
             'kategori' => $this->ModelKategori->AllData(),
+            'provinsi' => $this->ModelProvinsi->AllData(),
+            'kabupaten' => $this->ModelKabupaten->AllData(),
+            'kecamatan' => $this->ModelKecamatan->AllData(),
         ];
         return view('v_template_user', $data);
     }
@@ -175,6 +184,27 @@ class Home extends BaseController
             ],
             'id_kategori' => [
                 'label' => 'Jenis Hunian',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!',
+                ]
+            ],
+            'id_provinsi' => [
+                'label' => 'Provinsi',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!',
+                ]
+            ],
+            'id_kabupaten' => [
+                'label' => 'Kabupaten',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!',
+                ]
+            ],
+            'id_kecamatan' => [
+                'label' => 'Kecamatan',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib Diisi, tidak boleh kosong!',
@@ -228,6 +258,9 @@ class Home extends BaseController
                 'nama_pemilik' => $this->request->getPost('nama_pemilik'),
                 'alamat_hunian' => $this->request->getPost('alamat_hunian'),
                 'id_kategori' => $this->request->getPost('id_kategori'),
+                'id_provinsi' => $this->request->getPost('id_provinsi'),
+                'id_kabupaten' => $this->request->getPost('id_kabupaten'),
+                'id_kecamatan' => $this->request->getPost('id_kecamatan'),
                 'info' => $this->request->getPost('info'),
                 'nama_hunian' => $this->request->getPost('nama_hunian'),
                 'deskripsi_hunian' => $this->request->getPost('deskripsi_hunian'),
@@ -270,6 +303,9 @@ class Home extends BaseController
             'menu' => 'akun',
             'submenu' => 'tambahtempat',
             'kategori' => $this->ModelKategori->AllData(),
+            'provinsi' => $this->ModelProvinsi->AllData(),
+            'kabupaten' => $this->ModelKabupaten->AllData(),
+            'kecamatan' => $this->ModelKecamatan->AllData(),
             'tempatmember' => $this->ModelHunian->DetailDataHunianMember($id_hunian)
         ];
         return view('v_template_user', $data);
@@ -294,6 +330,27 @@ class Home extends BaseController
             ],
             'id_kategori' => [
                 'label' => 'Kategori',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'id_provinsi' => [
+                'label' => 'Provinsi',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'id_kabupaten' => [
+                'label' => 'Kabupaten',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi, tidak boleh kosong!'
+                ]
+            ],
+            'id_kecamatan' => [
+                'label' => 'Kecamatan',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib Diisi, tidak boleh kosong!'
@@ -376,6 +433,9 @@ class Home extends BaseController
                     'nama_pemilik' => $this->request->getPost('nama_pemilik'),
                     'alamat_hunian' => $this->request->getPost('alamat_hunian'),
                     'id_kategori' => $this->request->getPost('id_kategori'),
+                    'id_provinsi' => $this->request->getPost('id_provinsi'),
+                    'id_kabupaten' => $this->request->getPost('id_kabupaten'),
+                    'id_kecamatan' => $this->request->getPost('id_kecamatan'),
                     'info' => $this->request->getPost('info'),
                     'nama_hunian' => $this->request->getPost('nama_hunian'),
                     'luas_tanah' => $this->request->getPost('luas_tanah'),
@@ -400,6 +460,9 @@ class Home extends BaseController
                     'nama_pemilik' => $this->request->getPost('nama_pemilik'),
                     'alamat_hunian' => $this->request->getPost('alamat_hunian'),
                     'id_kategori' => $this->request->getPost('id_kategori'),
+                    'id_provinsi' => $this->request->getPost('id_provinsi'),
+                    'id_kabupaten' => $this->request->getPost('id_kabupaten'),
+                    'id_kecamatan' => $this->request->getPost('id_kecamatan'),
                     'info' => $this->request->getPost('info'),
                     'nama_hunian' => $this->request->getPost('nama_hunian'),
                     'deskripsi_hunian' => $this->request->getPost('deskripsi_hunian'),

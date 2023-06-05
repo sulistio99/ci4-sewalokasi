@@ -94,6 +94,7 @@
 
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane border fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                  <h5>Lihat Map : </h5>
                   <p> <i class="icon-location"></i> <?= $detailhunian['alamat_hunian']; ?></p>
                 </div>
 

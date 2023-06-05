@@ -11,6 +11,9 @@ class ModelHunian extends Model
   {
     return $this->db->table('tb_hunian')
       ->join('tb_kategori', 'tb_kategori.id_kategori=tb_hunian.id_kategori')
+      ->join('tb_provinsi', 'tb_provinsi.id_provinsi=tb_hunian.id_provinsi')
+      ->join('tb_kabupaten', 'tb_kabupaten.id_kabupaten=tb_hunian.id_kabupaten')
+      ->join('tb_kecamatan', 'tb_kecamatan.id_kecamatan=tb_hunian.id_kecamatan')
       ->orderBy('id_hunian', 'DESC')
       ->get()->getResultArray();
   }

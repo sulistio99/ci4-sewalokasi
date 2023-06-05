@@ -87,6 +87,47 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <!-- value old untuk tidak input ulang lagi -->
+                        <select class="form-control" name="id_provinsi">
+                            <option>-Pilih Provinsi-</option>
+                            <?php
+                            foreach ($provinsi as $key => $value) { ?>
+                                <option value="<?= $value['id_provinsi']; ?>" <?= $tempatmember['id_provinsi'] == $value['id_provinsi'] ? 'selected' : ""; ?>><?= $value['nama_provinsi']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>kabupaten</label>
+                        <!-- value old untuk tidak input ulang lagi -->
+                        <select class="form-control" name="id_kabupaten">
+                            <option>-Pilih Kabupaten-</option>
+                            <?php
+                            foreach ($kabupaten as $key => $value) { ?>
+                                <option value="<?= $value['id_kabupaten']; ?>" <?= $tempatmember['id_kabupaten'] == $value['id_kabupaten'] ? 'selected' : ""; ?>><?= $value['nama_kabupaten']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>kecamatan</label>
+                        <!-- value old untuk tidak input ulang lagi -->
+                        <select class="form-control" name="id_kecamatan">
+                            <option>-Pilih Kecamatan-</option>
+                            <?php
+                            foreach ($kecamatan as $key => $value) { ?>
+                                <option value="<?= $value['id_kecamatan']; ?>" <?= $tempatmember['id_kecamatan'] == $value['id_kecamatan'] ? 'selected' : ""; ?>><?= $value['nama_kecamatan']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Fasilitas Hunian</label>
